@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -17,6 +19,13 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private int _maxLives = 3;
+    [SerializeField] private int _totalEnemy = 15;
+
+    [SerializeField] private GameObject _panel;
+    [SerializeField] private Text _statusInfo;
+    [SerializeField] private Text _livesInfo;
+    [SerializeField] private Text _totalEnemyInfo;
     [SerializeField] private Transform _towerUIParent;
     [SerializeField] private GameObject _towerUIPrefab;
     [SerializeField] private Tower[] _towerPrefabs;
@@ -29,9 +38,15 @@ public class LevelManager : MonoBehaviour
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
     private List<Bullet> _spawnedBullets = new List<Bullet>();
 
+    private int _currentLives;
+    private int _enemyCounter;
     private float _runningSpawnDelay;
+
+    public bool IsOver { get; private set; }
     private void Start()
     {
+        SetCurrentLives(_maxLives);
+        SetTotalEnemy(_totalEnemy);
         InstantiateAllTowerUI();
     }
 
@@ -80,6 +95,26 @@ public class LevelManager : MonoBehaviour
                 enemy.MoveToTarget();
             }
         }
+
+        // Jika menekan tombol R, fungsi restart akan terpanggil
+
+        if (Input.GetKeyDown(KeyCode.R))
+
+        {
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        }
+
+
+
+        if (IsOver)
+
+        {
+
+            return;
+
+        }
     }
 
     // Menampilkan seluruh Tower yang tersedia pada UI Tower Selection
@@ -121,6 +156,18 @@ public class LevelManager : MonoBehaviour
         newEnemy.SetTargetPosition(_enemyPaths[1].position);
         newEnemy.SetCurrentPathIndex(1);
         newEnemy.gameObject.SetActive(true);
+
+        SetTotalEnemy(--_enemyCounter);
+        if (_enemyCounter < 0)
+        {
+            bool isAllEnemyDestroyed = _spawnedEnemies.Find(e => e.gameObject.activeSelf) == null;
+            if (isAllEnemyDestroyed)
+            {
+                SetGameOver(true);
+            }
+
+            return;
+        }
     }
 
     // Untuk menampilkan garis penghubung dalam window Scene
@@ -163,5 +210,36 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ReduceLives(int value)
+    {
+        SetCurrentLives(_currentLives - value);
+        if (_currentLives <= 0)
+        {
+            SetGameOver(false);
+        }
+    }
+
+    public void SetCurrentLives(int currentLives)
+    {
+        // Mathf.Max fungsi nya adalah mengambil angka terbesar
+        // sehingga _currentLives di sini tidak akan lebih kecil dari 0
+        _currentLives = Mathf.Max(currentLives, 0);
+        _livesInfo.text = $"Lives: {_currentLives}";
+    }
+
+    public void SetTotalEnemy(int totalEnemy)
+    {
+        _enemyCounter = totalEnemy;
+        _totalEnemyInfo.text = $"Total Enemy: {Mathf.Max(_enemyCounter, 0)}";
+    }
+
+    public void SetGameOver(bool isWin)
+    {
+        IsOver = true;
+
+        _statusInfo.text = isWin ? "You Win!" : "You Lose!";
+        _panel.gameObject.SetActive(true);
     }
 }
