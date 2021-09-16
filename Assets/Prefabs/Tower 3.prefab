@@ -87,6 +87,12 @@ PrefabInstance:
       propertyPath: _towerHead
       value: 
       objectReference: {fileID: 2926591358174507191}
+    - target: {fileID: 2571195056613716908, guid: 57f1e36f8b3016a4a8b6b266badcae1b,
+        type: 3}
+      propertyPath: _bulletPrefab
+      value: 
+      objectReference: {fileID: 5265435648740137913, guid: e82594320b5f86b4386b15c47536fcbb,
+        type: 3}
     - target: {fileID: 5603020539332476806, guid: 57f1e36f8b3016a4a8b6b266badcae1b,
         type: 3}
       propertyPath: m_Sprite

@@ -87,6 +87,12 @@ PrefabInstance:
       propertyPath: _towerHead
       value: 
       objectReference: {fileID: 4532372160670054599}
+    - target: {fileID: 2571195056613716908, guid: 57f1e36f8b3016a4a8b6b266badcae1b,
+        type: 3}
+      propertyPath: _bulletPrefab
+      value: 
+      objectReference: {fileID: 2111374106021892193, guid: ca019486ae0cd2f428104ebdfbc6d649,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57f1e36f8b3016a4a8b6b266badcae1b, type: 3}
 --- !u!212 &2709857044865124702 stripped
