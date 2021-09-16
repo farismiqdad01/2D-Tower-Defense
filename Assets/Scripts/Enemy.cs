@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -22,14 +20,9 @@ public class Enemy : MonoBehaviour
     }
 
     public void MoveToTarget()
-
     {
-
         transform.position = Vector3.MoveTowards(transform.position, TargetPosition, _moveSpeed * Time.deltaTime);
-
     }
-
-
 
     public void SetTargetPosition(Vector3 targetPosition)
     {
@@ -67,16 +60,21 @@ public class Enemy : MonoBehaviour
 
         _healthBar.transform.parent = transform;
     }
+
     public void ReduceEnemyHealth(int damage)
     {
         _currentHealth -= damage;
         AudioPlayer.Instance.PlaySFX("hit-enemy");
+
         if (_currentHealth <= 0)
         {
             _currentHealth = 0;
             gameObject.SetActive(false);
             AudioPlayer.Instance.PlaySFX("enemy-die");
         }
+
+        float healthPercentage = (float)_currentHealth / _maxHealth;
+        _healthFill.size = new Vector2(healthPercentage * _healthBar.size.x, _healthBar.size.y);
     }
 
     // Menandai indeks terakhir pada path

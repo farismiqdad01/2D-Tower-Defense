@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -14,6 +12,11 @@ public class Bullet : MonoBehaviour
     // cocok digunakan jika karakter memiliki Physic (Rigidbody, dll)
     private void FixedUpdate()
     {
+        if (LevelManager.Instance.IsOver)
+        {
+            return;
+        }
+
         if (_targetEnemy != null)
         {
             if (!_targetEnemy.gameObject.activeSelf)
@@ -24,13 +27,10 @@ public class Bullet : MonoBehaviour
             }
 
             transform.position = Vector3.MoveTowards(transform.position, _targetEnemy.transform.position, _bulletSpeed * Time.fixedDeltaTime);
+
             Vector3 direction = _targetEnemy.transform.position - transform.position;
             float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, targetAngle - 90f));
-        }
-        if (LevelManager.Instance.IsOver)
-        {
-            return;
         }
     }
 
@@ -40,6 +40,7 @@ public class Bullet : MonoBehaviour
         {
             return;
         }
+
         if (collision.gameObject.Equals(_targetEnemy.gameObject))
         {
             gameObject.SetActive(false);
@@ -58,7 +59,6 @@ public class Bullet : MonoBehaviour
             _targetEnemy = null;
         }
     }
-
 
     public void SetProperties(int bulletPower, float bulletSpeed, float bulletSplashRadius)
     {

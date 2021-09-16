@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class TowerUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private Image _towerIcon;
+
     private Tower _towerPrefab;
     private Tower _currentSpawnedTower;
 
@@ -31,6 +32,7 @@ public class TowerUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = -mainCamera.transform.position.z;
         Vector3 targetPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
         _currentSpawnedTower.transform.position = targetPosition;
     }
 

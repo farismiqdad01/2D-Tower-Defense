@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    // Digunakan untuk menyimpan posisi yang akan ditempati selama tower di drag
-    public Vector2? PlacePosition { get; private set; }
-
     // Tower Component
     [SerializeField] private SpriteRenderer _towerPlace;
     [SerializeField] private SpriteRenderer _towerHead;
@@ -17,38 +13,14 @@ public class Tower : MonoBehaviour
     [SerializeField] private float _shootDelay = 5f;
     [SerializeField] private float _bulletSpeed = 1f;
     [SerializeField] private float _bulletSplashRadius = 0f;
+
     [SerializeField] private Bullet _bulletPrefab;
-
-
 
     private float _runningShootDelay;
     private Enemy _targetEnemy;
     private Quaternion _targetRotation;
 
-    // Fungsi yang digunakan untuk mengambil sprite pada Tower Head
-    public Sprite GetTowerHeadIcon()
-    {
-        return _towerHead.sprite;
-    }
-
-
-    public void SetPlacePosition(Vector2? newPosition)
-    {
-        PlacePosition = newPosition;
-    }
-
-    public void LockPlacement()
-    {
-        transform.position = (Vector2)PlacePosition;
-    }
-
-    // Mengubah order in layer pada tower yang sedang di drag
-    public void ToggleOrderInLayer(bool toFront)
-    {
-        int orderInLayer = toFront ? 2 : 0;
-        _towerPlace.sortingOrder = orderInLayer;
-        _towerHead.sortingOrder = orderInLayer;
-    }
+    public Vector2? PlacePosition { get; private set; }
 
     // Mengecek musuh terdekat
     public void CheckNearestEnemy(List<Enemy> enemies)
@@ -82,6 +54,7 @@ public class Tower : MonoBehaviour
                 nearestEnemy = enemy;
             }
         }
+
         _targetEnemy = nearestEnemy;
     }
 
@@ -123,6 +96,31 @@ public class Tower : MonoBehaviour
         Vector3 direction = _targetEnemy.transform.position - transform.position;
         float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         _targetRotation = Quaternion.Euler(new Vector3(0f, 0f, targetAngle - 90f));
+
         _towerHead.transform.rotation = Quaternion.RotateTowards(_towerHead.transform.rotation, _targetRotation, Time.deltaTime * 180f);
+    }
+
+    public void SetPlacePosition(Vector2? newPosition)
+    {
+        PlacePosition = newPosition;
+    }
+
+    public void LockPlacement()
+    {
+        transform.position = (Vector2)PlacePosition;
+    }
+
+    // Mengubah order in layer pada tower yang sedang di drag
+    public void ToggleOrderInLayer(bool toFront)
+    {
+        int orderInLayer = toFront ? 2 : 0;
+        _towerPlace.sortingOrder = orderInLayer;
+        _towerHead.sortingOrder = orderInLayer;
+    }
+
+    // Fungsi yang digunakan untuk mengambil sprite pada Tower Head
+    public Sprite GetTowerHeadIcon()
+    {
+        return _towerHead.sprite;
     }
 }

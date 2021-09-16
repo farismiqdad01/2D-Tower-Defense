@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
             {
                 _instance = FindObjectOfType<LevelManager>();
             }
+
             return _instance;
         }
     }
@@ -26,8 +27,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Text _statusInfo;
     [SerializeField] private Text _livesInfo;
     [SerializeField] private Text _totalEnemyInfo;
+
     [SerializeField] private Transform _towerUIParent;
     [SerializeField] private GameObject _towerUIPrefab;
+
     [SerializeField] private Tower[] _towerPrefabs;
     [SerializeField] private Enemy[] _enemyPrefabs;
 
@@ -43,15 +46,28 @@ public class LevelManager : MonoBehaviour
     private float _runningSpawnDelay;
 
     public bool IsOver { get; private set; }
+
     private void Start()
     {
         SetCurrentLives(_maxLives);
         SetTotalEnemy(_totalEnemy);
+
         InstantiateAllTowerUI();
     }
 
     private void Update()
     {
+        // Jika menekan tombol R, fungsi restart akan terpanggil
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (IsOver)
+        {
+            return;
+        }
+
         // Counter untuk spawn enemy dalam jeda waktu yang ditentukan
         // Time.unscaledDeltaTime adalah deltaTime yang independent, tidak terpengaruh oleh apapun kecuali game object itu sendiri,
         // jadi bisa digunakan sebagai penghitung waktu
@@ -87,6 +103,7 @@ public class LevelManager : MonoBehaviour
                 }
                 else
                 {
+                    ReduceLives(1);
                     enemy.gameObject.SetActive(false);
                 }
             }
@@ -95,41 +112,20 @@ public class LevelManager : MonoBehaviour
                 enemy.MoveToTarget();
             }
         }
-
-        // Jika menekan tombol R, fungsi restart akan terpanggil
-
-        if (Input.GetKeyDown(KeyCode.R))
-
-        {
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-        }
-
-
-
-        if (IsOver)
-
-        {
-
-            return;
-
-        }
     }
 
-    // Menampilkan seluruh Tower yang tersedia pada UI Tower Selection
     private void InstantiateAllTowerUI()
     {
         foreach (Tower tower in _towerPrefabs)
         {
             GameObject newTowerUIObj = Instantiate(_towerUIPrefab.gameObject, _towerUIParent);
             TowerUI newTowerUI = newTowerUIObj.GetComponent<TowerUI>();
+
             newTowerUI.SetTowerPrefab(tower);
             newTowerUI.transform.name = tower.name;
         }
     }
 
-    // Mendaftarkan Tower yang di-spawn agar bisa dikontrol oleh LevelManager
     public void RegisterSpawnedTower(Tower tower)
     {
         _spawnedTowers.Add(tower);
@@ -137,10 +133,25 @@ public class LevelManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
+        SetTotalEnemy(--_enemyCounter);
+        if (_enemyCounter < 0)
+        {
+            bool isAllEnemyDestroyed = _spawnedEnemies.Find(e => e.gameObject.activeSelf) == null;
+            if (isAllEnemyDestroyed)
+            {
+                SetGameOver(true);
+            }
+
+            return;
+        }
+
         int randomIndex = Random.Range(0, _enemyPrefabs.Length);
         string enemyIndexString = (randomIndex + 1).ToString();
 
-        GameObject newEnemyObj = _spawnedEnemies.Find(e => !e.gameObject.activeSelf && e.name.Contains(enemyIndexString))?.gameObject;
+        GameObject newEnemyObj = _spawnedEnemies.Find(
+            e => !e.gameObject.activeSelf && e.name.Contains(enemyIndexString)
+        )?.gameObject;
+
         if (newEnemyObj == null)
         {
             newEnemyObj = Instantiate(_enemyPrefabs[randomIndex].gameObject);
@@ -156,34 +167,13 @@ public class LevelManager : MonoBehaviour
         newEnemy.SetTargetPosition(_enemyPaths[1].position);
         newEnemy.SetCurrentPathIndex(1);
         newEnemy.gameObject.SetActive(true);
-
-        SetTotalEnemy(--_enemyCounter);
-        if (_enemyCounter < 0)
-        {
-            bool isAllEnemyDestroyed = _spawnedEnemies.Find(e => e.gameObject.activeSelf) == null;
-            if (isAllEnemyDestroyed)
-            {
-                SetGameOver(true);
-            }
-
-            return;
-        }
-    }
-
-    // Untuk menampilkan garis penghubung dalam window Scene
-    // tanpa harus di-Play terlebih dahulu
-    private void OnDrawGizmos()
-    {
-        for (int i = 0; i < _enemyPaths.Length - 1; i++)
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawLine(_enemyPaths[i].position, _enemyPaths[i + 1].position);
-        }
     }
 
     public Bullet GetBulletFromPool(Bullet prefab)
     {
-        GameObject newBulletObj = _spawnedBullets.Find(b => !b.gameObject.activeSelf && b.name.Contains(prefab.name))?.gameObject;
+        GameObject newBulletObj = _spawnedBullets.Find(
+            b => !b.gameObject.activeSelf && b.name.Contains(prefab.name)
+        )?.gameObject;
 
         if (newBulletObj == null)
         {
@@ -195,6 +185,7 @@ public class LevelManager : MonoBehaviour
         {
             _spawnedBullets.Add(newBullet);
         }
+
         return newBullet;
     }
 
@@ -241,5 +232,16 @@ public class LevelManager : MonoBehaviour
 
         _statusInfo.text = isWin ? "You Win!" : "You Lose!";
         _panel.gameObject.SetActive(true);
+    }
+
+    // Untuk menampilkan garis penghubung dalam window Scene
+    // tanpa harus di-Play terlebih dahulu
+    private void OnDrawGizmos()
+    {
+        for (int i = 0; i < _enemyPaths.Length - 1; i++)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(_enemyPaths[i].position, _enemyPaths[i + 1].position);
+        }
     }
 }
