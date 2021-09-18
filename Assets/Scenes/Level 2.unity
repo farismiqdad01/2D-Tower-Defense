@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLives: 1
-  _totalEnemy: 50
+  _totalEnemy: 1000
   _panel: {fileID: 473412955}
   _statusInfo: {fileID: 1984719775}
   _livesInfo: {fileID: 344192568}
@@ -233,7 +233,7 @@ MonoBehaviour:
   - {fileID: 275596823}
   - {fileID: 588898342}
   - {fileID: 516877659}
-  _spawnDelay: 2
+  _spawnDelay: 1
 --- !u!1 &136595677
 GameObject:
   m_ObjectHideFlags: 0

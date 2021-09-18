@@ -12,6 +12,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet 2
       objectReference: {fileID: 0}
+    - target: {fileID: 271455140837436405, guid: 67a07022fe1c61046956b33dba6251ec,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 109464161725895960}
+    - target: {fileID: 5424944612462149822, guid: 67a07022fe1c61046956b33dba6251ec,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424944612462149822, guid: 67a07022fe1c61046956b33dba6251ec,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390335208400038757, guid: 67a07022fe1c61046956b33dba6251ec,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4e3d102c90ad3ab488fed6e7fd955a80,
+        type: 3}
     - target: {fileID: 4548625342058834869, guid: 67a07022fe1c61046956b33dba6251ec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,21 +88,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8390335208400038757, guid: 67a07022fe1c61046956b33dba6251ec,
+    - target: {fileID: 7347860821437078813, guid: 67a07022fe1c61046956b33dba6251ec,
         type: 3}
-      propertyPath: m_Sprite
+      propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 21300000, guid: 4e3d102c90ad3ab488fed6e7fd955a80,
+      objectReference: {fileID: 9100000, guid: a3f840deb147413488a801a22aa808da, type: 2}
+    - target: {fileID: 5427426627884344660, guid: 67a07022fe1c61046956b33dba6251ec,
         type: 3}
-    - target: {fileID: 5424944612462149822, guid: 67a07022fe1c61046956b33dba6251ec,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 5424944612462149822, guid: 67a07022fe1c61046956b33dba6251ec,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.75
-      objectReference: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a3f840deb147413488a801a22aa808da, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67a07022fe1c61046956b33dba6251ec, type: 3}
+--- !u!95 &109464161725895960 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5427426627884344660, guid: 67a07022fe1c61046956b33dba6251ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 5392764579472486476}
+  m_PrefabAsset: {fileID: 0}

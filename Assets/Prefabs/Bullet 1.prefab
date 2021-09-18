@@ -10,8 +10,13 @@ PrefabInstance:
     - target: {fileID: 7392234757008886892, guid: 67a07022fe1c61046956b33dba6251ec,
         type: 3}
       propertyPath: m_Name
-      value: Bullet
+      value: Bullet 1
       objectReference: {fileID: 0}
+    - target: {fileID: 271455140837436405, guid: 67a07022fe1c61046956b33dba6251ec,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 6186656504817376960}
     - target: {fileID: 4548625342058834869, guid: 67a07022fe1c61046956b33dba6251ec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,5 +72,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7347860821437078813, guid: 67a07022fe1c61046956b33dba6251ec,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9f9ce541e6092e049be9d3587539f301, type: 2}
+    - target: {fileID: 5427426627884344660, guid: 67a07022fe1c61046956b33dba6251ec,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9f9ce541e6092e049be9d3587539f301, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67a07022fe1c61046956b33dba6251ec, type: 3}
+--- !u!95 &6186656504817376960 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5427426627884344660, guid: 67a07022fe1c61046956b33dba6251ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 2200426864612555668}
+  m_PrefabAsset: {fileID: 0}

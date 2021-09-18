@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Enemy : MonoBehaviour
 
     public Vector3 TargetPosition { get; private set; }
     public int CurrentPathIndex { get; private set; }
+
 
     // Fungsi ini terpanggil sekali setiap kali menghidupkan game object yang memiliki script ini
     private void OnEnable()
@@ -75,6 +77,11 @@ public class Enemy : MonoBehaviour
 
         float healthPercentage = (float)_currentHealth / _maxHealth;
         _healthFill.size = new Vector2(healthPercentage * _healthBar.size.x, _healthBar.size.y);
+    }
+
+    IEnumerator delayanim()
+    {
+        yield return new WaitForSeconds(4);
     }
 
     // Menandai indeks terakhir pada path

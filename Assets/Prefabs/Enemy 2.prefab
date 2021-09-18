@@ -38,6 +38,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1786427919843075150, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
+        type: 3}
+      propertyPath: _healthBar
+      value: 
+      objectReference: {fileID: 528977805634466985}
+    - target: {fileID: 1786427919843075150, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
+        type: 3}
+      propertyPath: _healthFill
+      value: 
+      objectReference: {fileID: 6828563247753439168}
+    - target: {fileID: 1786427919843075150, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
+        type: 3}
+      propertyPath: _maxHealth
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1786427919843075150, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
+        type: 3}
+      propertyPath: _moveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1786427919843075150, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
+        type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 242322951573438570, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: deb6f22a46872154db8dc2cbe694e838,
+        type: 3}
     - target: {fileID: 8054623213117590111, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -92,32 +123,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 242322951573438570, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: deb6f22a46872154db8dc2cbe694e838,
-        type: 3}
-    - target: {fileID: 1786427919843075150, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
-        type: 3}
-      propertyPath: _healthBar
-      value: 
-      objectReference: {fileID: 528977805634466985}
-    - target: {fileID: 1786427919843075150, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
-        type: 3}
-      propertyPath: _healthFill
-      value: 
-      objectReference: {fileID: 6828563247753439168}
-    - target: {fileID: 1786427919843075150, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
-        type: 3}
-      propertyPath: _maxHealth
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1786427919843075150, guid: 8cc3e56d6e0ca9543a976e8589b21c3f,
-        type: 3}
-      propertyPath: _moveSpeed
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cc3e56d6e0ca9543a976e8589b21c3f, type: 3}

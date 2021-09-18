@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Bullet : MonoBehaviour
 {
     private int _bulletPower;
     private float _bulletSpeed;
     private float _bulletSplashRadius;
-
+    [SerializeField] private Animator anim;
     private Enemy _targetEnemy;
 
     // FixedUpdate adalah update yang lebih konsisten jeda pemanggilannya
@@ -43,7 +44,8 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.Equals(_targetEnemy.gameObject))
         {
-            gameObject.SetActive(false);
+            anim.SetBool("boom", true);
+            Delay();
 
             // Bullet yang memiliki efek splash area
             if (_bulletSplashRadius > 0f)
@@ -59,6 +61,16 @@ public class Bullet : MonoBehaviour
             _targetEnemy = null;
         }
     }
+
+    public void DisableBullet()
+    {
+        gameObject.SetActive(false);
+    }
+    public void Delay()
+    {
+        Invoke("DisableBullet", 1);
+    }
+
 
     public void SetProperties(int bulletPower, float bulletSpeed, float bulletSplashRadius)
     {
