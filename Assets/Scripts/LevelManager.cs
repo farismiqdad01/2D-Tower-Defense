@@ -62,6 +62,11 @@ public class LevelManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        // Jika menekan tombol escape, akan kembali ke main menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
 
         if (IsOver)
         {
