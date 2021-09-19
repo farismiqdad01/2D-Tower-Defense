@@ -16,6 +16,8 @@ public class Tower : MonoBehaviour
 
     [SerializeField] private Bullet _bulletPrefab;
 
+    public bool IsPlaced { get; private set; }
+
     private float _runningShootDelay;
     private Enemy _targetEnemy;
     private Quaternion _targetRotation;
@@ -107,6 +109,7 @@ public class Tower : MonoBehaviour
 
     public void LockPlacement()
     {
+        IsPlaced = true;
         transform.position = (Vector2)PlacePosition;
     }
 
